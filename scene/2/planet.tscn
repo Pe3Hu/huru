@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx2nuet38b2lb"]
+
+[ext_resource type="Script" path="res://scene/2/planet.gd" id="1_ictb4"]
+[ext_resource type="PackedScene" uid="uid://cpy4e7gqh303n" path="res://scene/2/mainland.tscn" id="2_46ahg"]
+[ext_resource type="PackedScene" uid="uid://b18ccjsrs07db" path="res://scene/3/minion.tscn" id="3_xqwry"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
+
+[node name="Planet" type="MarginContainer"]
+custom_minimum_size = Vector2(5, 5)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ictb4")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7paps")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="Mainland" parent="Nodes" instance=ExtResource("2_46ahg")]
+
+[node name="Minions" type="Node2D" parent="Nodes"]
+
+[node name="Minion" parent="Nodes/Minions" instance=ExtResource("3_xqwry")]
