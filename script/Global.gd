@@ -27,6 +27,7 @@ func init_arr() -> void:
 
 func init_num() -> void:
 	num.index = {}
+	num.index.god = 0
 	
 	num.mainland = {}
 	num.mainland.rings = 9
@@ -36,6 +37,8 @@ func init_num() -> void:
 	
 	num.spot = {}
 	num.spot.l = 32
+	num.spot.a = num.spot.l / 2
+	num.spot.r = num.spot.a * sqrt(2)
 	
 	num.settlement = {}
 	num.settlement.gap = 3
@@ -43,6 +46,8 @@ func init_num() -> void:
 
 func init_dict() -> void:
 	init_direction()
+	init_font()
+	init_corner()
 
 
 func init_direction() -> void:
@@ -91,6 +96,37 @@ func init_direction() -> void:
 	]
 
 
+func init_font():
+	dict.font = {}
+	dict.font.size = {}
+
+
+func init_corner() -> void:
+	dict.order = {}
+	dict.order.pair = {}
+	dict.order.pair["even"] = "odd"
+	dict.order.pair["odd"] = "even"
+	var corners = [4]
+	dict.corner = {}
+	dict.corner.vector = {}
+	
+	for corners_ in corners:
+		dict.corner.vector[corners_] = {}
+		dict.corner.vector[corners_].even = {}
+		
+		for order_ in dict.order.pair.keys():
+			dict.corner.vector[corners_][order_] = {}
+		
+			for _i in corners_:
+				var angle = 2*PI*_i/corners_-PI/2
+				
+				if order_ == "odd":
+					angle += PI/corners_
+				
+				var vertex = Vector2(1,0).rotated(angle)
+				dict.corner.vector[corners_][order_][_i] = vertex
+
+
 func init_blank() -> void:
 	dict.blank = {}
 	dict.blank.rank = {}
@@ -113,18 +149,22 @@ func init_blank() -> void:
 		dict.blank.rank[blank.rank].append(data)
 
 
-
 func init_scene() -> void:
 	scene.pantheon = load("res://scene/1/pantheon.tscn")
 	scene.god = load("res://scene/1/god.tscn")
 	
 	scene.planet = load("res://scene/2/planet.tscn")
+	
+	scene.minion = load("res://scene/3/minion.tscn")
+	
+	scene.zone = load("res://scene/4/zone.tscn")
 
 
 func init_vec():
 	vec.size = {}
 	vec.size.sixteen = Vector2(16, 16)
-	vec.size.spot = Vector2(24, 24)
+	vec.size.token = Vector2(vec.size.sixteen)
+	vec.size.spot = Vector2.ONE * num.spot.l
 	
 	
 	init_window_size()
@@ -140,8 +180,8 @@ func init_window_size():
 func init_color():
 	var h = 360.0
 	
-	color.defender = {}
-	color.defender.active = Color.from_hsv(120 / h, 0.6, 0.7)
+	color.god = {}
+	color.god[0] = Color.from_hsv(120 / h, 0.6, 0.7)
 
 
 func save(path_: String, data_: String):

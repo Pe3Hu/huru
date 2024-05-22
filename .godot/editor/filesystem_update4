@@ -1,4 +1,16 @@
-res://scene/3/minion.tscn
 res://scene/2/planet.tscn
 res://scene/2/mainland.tscn
+res://scene/3/minion.tscn
+res://scene/4/zone.tscn
+res://script/Global.gd
+res://scene/4/zone.gd
+res://scene/2/mainland.gd
+res://scene/4/conquest.tscn
+res://scene/0/token.gd
+res://script/Classes.gd
+res://scene/1/god.gd
+res://scene/1/god.tscn
+res://scene/2/planet.gd
+res://scene/0/sketch.gd
 res://scene/3/minion.gd
+res://scene/1/pantheon.gd

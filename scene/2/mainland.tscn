@@ -84,3 +84,5 @@ format = 2
 [node name="Outcomes" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_kf45o")
 format = 2
+
+[node name="Zones" type="Node2D" parent="."]

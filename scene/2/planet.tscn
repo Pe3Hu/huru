@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx2nuet38b2lb"]
+[gd_scene load_steps=4 format=3 uid="uid://dx2nuet38b2lb"]
 
 [ext_resource type="Script" path="res://scene/2/planet.gd" id="1_ictb4"]
 [ext_resource type="PackedScene" uid="uid://cpy4e7gqh303n" path="res://scene/2/mainland.tscn" id="2_46ahg"]
-[ext_resource type="PackedScene" uid="uid://b18ccjsrs07db" path="res://scene/3/minion.tscn" id="3_xqwry"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
 
@@ -37,5 +36,3 @@ alignment = 1
 [node name="Mainland" parent="Nodes" instance=ExtResource("2_46ahg")]
 
 [node name="Minions" type="Node2D" parent="Nodes"]
-
-[node name="Minion" parent="Nodes/Minions" instance=ExtResource("3_xqwry")]

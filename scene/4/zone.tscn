@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5o3l2n5k1o5o"]
+
+[ext_resource type="Script" path="res://scene/4/zone.gd" id="1_6b7xm"]
+[ext_resource type="PackedScene" path="res://scene/0/token.tscn" id="2_f3igm"]
+
+[node name="Zone" type="Polygon2D"]
+visible = false
+color = Color(0.529511, 0.573215, 0.582577, 1)
+script = ExtResource("1_6b7xm")
+
+[node name="Influence" parent="." instance=ExtResource("2_f3igm")]
+visible = false
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5

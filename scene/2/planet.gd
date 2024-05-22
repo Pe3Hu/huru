@@ -5,9 +5,9 @@ extends MarginContainer
 @onready var nodes = $Nodes
 @onready var mainland = $Nodes/Mainland
 @onready var minions = $Nodes/Minions
-@onready var minion = $Nodes/Minions/Minion
 
 var universe = null
+var gods = []
 #endregion
 
 
@@ -22,6 +22,16 @@ func init_basic_setting() -> void:
 	var input = {}
 	input.planet = self
 	mainland.set_attributes(input)
-	input.spot = mainland.settlements.pick_random()
-	minion.set_attributes(input)
+
+
+func add_god(god_: MarginContainer) -> void:
+	gods.append(god_)
+	god_.planet = self
+	god_.conqueror.init_basic_setting()
 #endregion
+
+
+func start_race() -> void:
+	pass
+#endregion
+

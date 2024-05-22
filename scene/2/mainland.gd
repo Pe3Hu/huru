@@ -4,6 +4,7 @@ extends Node2D
 #region var
 @onready var spots = $Spots
 @onready var outcomes = $Outcomes
+@onready var zones = $Zones
 
 var planet = null
 var grids = {}
@@ -32,12 +33,7 @@ func init_basic_setting() -> void:
 	source = 0
 	
 	init_cells()
-	
-	#var grid = Vector2i.ONE
-	#var local = spots.map_to_local(grid)
-	#print(local)
-	#init_buildings()
-	#init_workpieces()
+	init_zones()
 
 
 func init_cells() -> void:
@@ -46,6 +42,7 @@ func init_cells() -> void:
 	planet.custom_minimum_size = Vector2.ONE * Global.num.mainland.n * l
 	planet.nodes.position = -Vector2.ONE * l / 2 + planet.custom_minimum_size * 0.5
 	planet.minions.position += Vector2.ONE * l / 2
+	zones.position += Vector2.ONE * l / 2
 	
 	for ring in radius + 1:
 		rings[ring] = []
@@ -73,7 +70,6 @@ func add_spot(grid_: Vector2i) -> void:
 			input.type = "settlement"
 			atlas_coord = Vector2i(0, 0)
 	
-	#print(type)
 	spots.set_cell(layer.floor, grid_, source, atlas_coord)
 	var _spot = Classes.Spot.new(input)
 
@@ -132,11 +128,36 @@ func add_spot(grid_: Vector2i) -> void:
 		#spots.set_cell(layer.floor, grid, source, atlas_coord)
 
 
-func set_cell_as_frontier(grid_: Vector2i) -> void:
-	terrains.frontier.append(grid_)
-	var terrain_index = Global.arr.terrains.find("frontier")
+func init_zones() -> void:
+	for type in Global.arr.ennobled:
+		var _spots = get(type+"s")
+		
+		for spot in _spots:
+			add_zone(spot)
 	
-	spots.set_cells_terrain_connect(layer.floor, terrains.frontier, terrain_index, 0)
+	update_zone_neighbors()
+
+
+func add_zone(spot_: Classes.Spot) -> void:
+	var input = {}
+	input.spot = spot_
+	
+	var zone = Global.scene.zone.instantiate()
+	zones.add_child(zone)
+	zone.set_attributes(input)
+
+
+func update_zone_neighbors() -> void:
+	for zone in zones.get_children():
+		for direction in Global.dict.direction.linear:
+			var grid = direction + zone.spot.grid
+			
+			if grids.has(grid):
+				var neighbor = grids[grid]
+				
+				if !zone.neighbors.has(neighbor) and neighbor.zone != null:
+					zone.neighbors[neighbor.zone] = direction
+					neighbor.zone.neighbors[zone] = -direction
 
 
 func grid_radius_check(grid_: Vector2i) -> bool:
